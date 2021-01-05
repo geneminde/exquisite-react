@@ -4,7 +4,22 @@ import PropTypes from 'prop-types';
 import './PlayerSubmissionForm.css';
 
 const PlayerSubmissionForm = (props) => {
-  const [player, setPlayer] = useState(1)
+  const blankSubmission = () => {
+    const blankFields = props.fields.map((element) => {
+      if(element.key) {
+        const newObject = {}
+        newObject[`${element.key}`] = ''
+        return newObject
+      } else {
+        return element
+      }
+    })
+    return blankFields
+  }
+
+  const [player, setPlayer] = useState(1);
+  const [playerSubmission, setPlayerSubmission] = useState(blankSubmission())
+
   
 
 
