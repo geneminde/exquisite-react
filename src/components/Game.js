@@ -20,6 +20,22 @@ const Game = () => {
 
   }
 
+  const getLastLine = () => {
+    if (submittedLines.length > 0) {
+      const lastLine = submittedLines[submittedLines.length - 1]
+      const words = FIELDS.map((element) => {
+        if (element.key) {
+          return lastLine[`${element.key}`]
+        } else {
+          return element
+        }
+      })
+      return words.join(' ')
+    } else {
+      return ''
+    }
+  }
+
   return (
     <div className="Game">
       <h2>Game</h2>
@@ -32,7 +48,7 @@ const Game = () => {
         { exampleFormat }
       </p>
 
-      <RecentSubmission />
+      <RecentSubmission submission={ getLastLine() } />
 
       <PlayerSubmissionForm fields={FIELDS} sendSubmission={onSubmitLine} index={0}/>
 
