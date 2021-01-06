@@ -4,37 +4,50 @@ import PropTypes from 'prop-types';
 import './PlayerSubmissionForm.css';
 
 const PlayerSubmissionForm = (props) => {
-  const blankSubmission = () => {
-    const blankFields = props.fields.map((element) => {
-      if(element.key) {
-        const newObject = {}
-        newObject[`${element.key}`] = ''
-        return newObject
-      } else {
-        return element
-      }
-    })
-    return blankFields
+  
+  const blankFields = {
+    adj1: '',
+    noun1: '', 
+    adv: '', 
+    verb: '', 
+    adj2: '',
+    noun2: '', 
   }
 
   const [player, setPlayer] = useState(1);
-  const [playerSubmission, setPlayerSubmission] = useState(blankSubmission())
+  const [playerSubmission, setPlayerSubmission] = useState(blankFields)
 
+  const onInputChange = (event) => {
   
+    const updatedField = {...playerSubmission}
+    updatedField[event.target.name] = event.target.value
+    setPlayerSubmission(updatedField)
+    
+  }
 
+  const onSubmitNewLine = (event) => {
+    event.preventDefault();
+
+    setPlayer(player + 1);
+    console.log(player);
+
+    props.sendSubmission(playerSubmission);
+    
+    setPlayerSubmission(blankFields);
+  }
 
   return (
     <div className="PlayerSubmissionForm">
       <h3>Player Submission Form for Player #{player}</h3>
 
-      <form className="PlayerSubmissionForm__form" >
+      <form className="PlayerSubmissionForm__form" onSubmit={onSubmitNewLine} >
 
         <div className="PlayerSubmissionForm__poem-inputs">
-
+      
           {
-           props.fields.map((element) => {
-             if (element.placeholder) {
-               return(<input placeholder={element.placeholder} type="text"/>)
+           props.fields.map((element, i) => {
+             if (element.key) {
+               return(<input key={ `${i}` } name={ element.key } placeholder={ element.placeholder } type="text" value={ playerSubmission[element.key] } onChange={ onInputChange } />)
              } else {
                return(element)
              }
@@ -45,7 +58,7 @@ const PlayerSubmissionForm = (props) => {
         </div>
 
         <div className="PlayerSubmissionForm__submit">
-          <input type="submit" value="Submit Line" className="PlayerSubmissionForm__submit-btn" />
+          <input type="submit" value="Submit Line" className="PlayerSubmissionForm__submit-btn"  />
         </div>
       </form>
     </div>
