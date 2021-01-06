@@ -6,6 +6,7 @@ import RecentSubmission from './RecentSubmission';
 
 const Game = () => {
   const [submittedLines, setSubmittedLines] = useState([])
+  const [submitted, setSubmitted] = useState(false)
   const exampleFormat = FIELDS.map((field) => {
     if (field.key) {
       return field.placeholder;
@@ -17,12 +18,15 @@ const Game = () => {
   const onSubmitLine = (submittedLine) => {
     const newLineList = [...submittedLines, submittedLine];
     setSubmittedLines(newLineList);
-
   }
 
   const getLastLine = () => {
     return( (submittedLines.length > 0) ? submittedLines[submittedLines.length - 1] : '');
   }
+
+  const finishGame = () => {
+    setSubmitted(true);
+  } 
 
   return (
     <div className="Game">
@@ -40,7 +44,7 @@ const Game = () => {
 
       <PlayerSubmissionForm fields={FIELDS} sendSubmission={onSubmitLine} index={0}/>
 
-      <FinalPoem />
+      <FinalPoem isSubmitted={submitted} submissions={submittedLines} revealPoem={finishGame} />
 
     </div>
   );
