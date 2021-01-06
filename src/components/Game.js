@@ -25,7 +25,7 @@ const Game = () => {
   }
 
   const finishGame = () => {
-    setSubmitted(true);
+    setSubmitted(!submitted);
   } 
 
   return (
@@ -39,7 +39,7 @@ const Game = () => {
       <p className="Game__format-example">
         { exampleFormat }
       </p>
-
+      
       <RecentSubmission submission={ getLastLine() } />
 
       <PlayerSubmissionForm fields={FIELDS} sendSubmission={onSubmitLine} index={0}/>
