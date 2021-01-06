@@ -39,12 +39,12 @@ const PlayerSubmissionForm = (props) => {
     event.preventDefault();
 
     setPlayer(player + 1);
-    console.log(player);
 
     props.sendSubmission(makeSentence());
     
     setPlayerSubmission(blankFields);
   }
+  
 
   return (
     <div className="PlayerSubmissionForm">
@@ -57,7 +57,7 @@ const PlayerSubmissionForm = (props) => {
           {
            props.fields.map((element, i) => {
              if (element.key) {
-               return(<input key={ `${i}` } name={ element.key } placeholder={ element.placeholder } type="text" value={ playerSubmission[element.key] } onChange={ onInputChange } />)
+               return(<input key={ `${i}` } className={ playerSubmission[element.key] === '' ? 'empty' : 'full' } name={ element.key } placeholder={ element.placeholder } type="text" value={ playerSubmission[element.key] } onChange={ onInputChange } />)
              } else {
                return(element)
              }
