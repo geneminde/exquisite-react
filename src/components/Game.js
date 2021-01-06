@@ -21,19 +21,7 @@ const Game = () => {
   }
 
   const getLastLine = () => {
-    if (submittedLines.length > 0) {
-      const lastLine = submittedLines[submittedLines.length - 1]
-      const words = FIELDS.map((element) => {
-        if (element.key) {
-          return lastLine[`${element.key}`]
-        } else {
-          return element
-        }
-      })
-      return words.join(' ')
-    } else {
-      return ''
-    }
+    return( (submittedLines.length > 0) ? submittedLines[submittedLines.length - 1] : '');
   }
 
   return (

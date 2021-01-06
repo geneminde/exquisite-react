@@ -24,6 +24,16 @@ const PlayerSubmissionForm = (props) => {
     setPlayerSubmission(updatedField)
     
   }
+  const makeSentence = () => {
+    const words = props.fields.map((element) => {
+      if (element.key) {
+        return playerSubmission[`${element.key}`]
+      } else {
+        return element
+      }
+    })
+    return words.join(' ')
+  }
 
   const onSubmitNewLine = (event) => {
     event.preventDefault();
@@ -31,7 +41,7 @@ const PlayerSubmissionForm = (props) => {
     setPlayer(player + 1);
     console.log(player);
 
-    props.sendSubmission(playerSubmission);
+    props.sendSubmission(makeSentence());
     
     setPlayerSubmission(blankFields);
   }
